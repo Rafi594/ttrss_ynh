@@ -22,11 +22,11 @@ extract_ttrss() {
 
   # retrieve and extract ttrss tarball
   ttrss_tarball="/tmp/ttrss.zip"
-  rm -f "$ttrss_tarball"
+  sudo rm -f "$ttrss_tarball"
   wget -q -O "$ttrss_tarball" "$TTRSS_BINARY_URL" \
     || ynh_die "Unable to download ttrss tarball"
   unzip -q "$ttrss_tarball" -d "$TMPDIR" \
     || ynh_die "Unable to extract ttrss tarball"
   sudo rsync -a "$TMPDIR"/tt-rss.git/* "$DESTDIR"
-  rm -rf "$ttrss_tarball" "$TMPDIR"
+  sudo rm -rf "$ttrss_tarball" "$TMPDIR"
 }

@@ -1,21 +1,21 @@
 #!/bin/bash
 
 # causes the shell to exit if any subcommand or pipeline returns a non-zero status
-set -e
+set -eu
 
 # Load common variables
 source ./_common.sh
 
 
 # Retrieve arguments
-domain=$1
-path=$2
+domain=$YNH_APP_ARG_DOMAIN
+path=$YNH_APP_ARG_PATH
 app=${!#}
 
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a $app
 if [[ ! $? -eq 0 ]]; then
-exit 1
+yhn_die 1
 fi
 
 # Generate random DES key & password
@@ -36,7 +36,7 @@ db_user=$app
 
 # Initialize database and store mysql password for upgrade
 sudo yunohost app initdb $db_user -p $db_pwd -s $(readlink -e $final_path/schema/ttrss_schema_mysql.sql)
-sudo yunohost app setting $app mysqlpwd -v $db_pwd
+sudo ynh_app_setting_set $app mysqlpwd -v $db_pwd
 
 # Change variables in ttrss configuration
 sudo sed -i "s/yunouser/$db_user/g" $final_path/config.php
@@ -81,4 +81,4 @@ sudo service nginx reload
 # Update database schema
 sudo sudo -u www-data php ${final_path}/update.php --update-schema
 
-sudo yunohost app setting $app skipped_uris -v "/public.php,/api"
+sudo ynh_app_setting_set $app skipped_uris -v "/public.php,/api"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # causes the shell to exit if any subcommand or pipeline returns a non-zero status
-set -e
+set -eu
 
 # Source YNH helpers
 . /usr/share/yunohost/helpers
@@ -18,8 +18,8 @@ set -e
 # db names, ...
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(sudo yunohost app setting $app domain)
-path=$(sudo yunohost app setting $app path)
+domain=$(sudo ynh_app_setting_get $app domain)
+path=$(sudo ynh_app_setting_get $app path)
 
 # Copy the app files
 final_path="/var/www/$app"

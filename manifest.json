@@ -11,11 +11,12 @@
   },
   "url": "http://tt-rss.org",
   "version": "17.1",
+  "license": "free",
   "maintainer": {
     "name": "titoko",
     "email": "titoko@titoko.fr"
   },
-  "multi_instance": "true",
+  "multi_instance": true,
   "services": [
       "nginx",
       "php5-fpm",
