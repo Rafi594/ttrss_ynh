@@ -2,6 +2,9 @@
 
 set -u
 
+# Source YNH helpers
+. /usr/share/yunohost/helpers
+
 app=${!#}
 
 db_user=$app

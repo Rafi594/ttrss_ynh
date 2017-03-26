@@ -3,6 +3,9 @@
 # causes the shell to exit if any subcommand or pipeline returns a non-zero status
 set -eu
 
+# Source YNH helpers
+. /usr/share/yunohost/helpers
+
 # Load common variables
 source ./_common.sh
 
